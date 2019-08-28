@@ -138,7 +138,7 @@ function encrypt($str){
         $encStr=$encStr.$this->encryptKey[$j];
     }
     $this->encryptData=$encStr;
-    $this->encryptMethod=$encryMethod;
+    $this->method=$encryMethod;
     $this->htmlData=$htmlStr;
 
 }
