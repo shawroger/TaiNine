@@ -1,15 +1,17 @@
 <?php
 
-//初始编码utf-8
 header("Content-type:text/html;charset=utf-8");
 
 class TaiNine {
-  //初始化
-  public $str;
-
+    
+public $str;
+    
 function __construct($str) {
     
     $this->str=$str;
+    
+    //获取html实体化数据
+    $this->htmlStr=$this->toHtml($str);
     
     //81个原始字符数组
     $KEY[0]="a";
@@ -92,7 +94,7 @@ function __construct($str) {
     $KEY[77]="#";
     $KEY[78]="$";
     $KEY[79]="&";
-    $KEY[80]=" ";
+    $KEY[80]="=";
     
     //深拷贝2个数组用来打乱和记录原始数据
     for($i=0;$i<=80;$i++){
@@ -120,6 +122,8 @@ function encrypt($str){
         $str=$this->str;
     }
     
+    $str=$this->toHtml($str);
+    
     //每次打乱数组
     shuffle($this->encryptKey);
 
@@ -127,23 +131,18 @@ function encrypt($str){
     for($i=0;$i<=80;$i++){
         $encryMethod=$encryMethod.$this->encryptKey[$i];
     }
-    
-    //获取html实体化数据
-    $htmlStr=$this->toHtml($str);
-    
+
     //打乱序列
-    for($i=0;$i<strlen($htmlStr);$i++){
+    for($i=0;$i<strlen($str);$i++){
         //同余位次叠加加密法
-        $j=($this->underKey[$htmlStr[$i]]+$i)%81;
+        $j=($this->underKey[$str[$i]]+$i)%81;
         $encStr=$encStr.$this->encryptKey[$j];
     }
     $this->encryptData=$encStr;
     $this->method=$encryMethod;
-    $this->htmlData=$htmlStr;
 
 }
 
-//解密方法，需要一个method
 function decrypt($str,$method){
     for($i=0;$i<strlen($method);$i++){
         $decryKey[$i]=$method[$i];
@@ -157,10 +156,8 @@ function decrypt($str,$method){
         }
         $decryptData=$decryptData.$this->originKey[$j];
     }
-    $this->decryptData=$decryptData;
+    $this->decryptData=$this->backHtml($decryptData);
 }
 
 //class end
 }
-
-?>
