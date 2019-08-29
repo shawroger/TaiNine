@@ -152,4 +152,5 @@ function decrypt($str,$method){
 }
 
 //class end
+    
 }
