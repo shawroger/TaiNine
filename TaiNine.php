@@ -97,8 +97,18 @@ function __construct() {
         $this->originKey[$i]=$KEY[$i];
     }
     
+    //每次打乱数组
+    shuffle($this->encryptKey);
+    
+    //获取打乱数组的序列
+    for($i=0;$i<=80;$i++){
+        $encryMethod=$encryMethod.$this->encryptKey[$i];
+    }
+    $this->method=$encryMethod;
+    
     //获取正确序列数组的反序列
-    $this->underKey=array_flip($this->encryptKey);
+    $this->underKey=array_flip($this->originKey);
+    
 }
    
     
@@ -116,13 +126,6 @@ function backHtml($string) {
 function encrypt($str){ 
     
     $str=$this->toHtml($str);
-    //每次打乱数组
-    shuffle($this->encryptKey);
-
-    //获取打乱数组的序列
-    for($i=0;$i<=80;$i++){
-        $encryMethod=$encryMethod.$this->encryptKey[$i];
-    }
 
     //打乱序列
     for($i=0;$i<strlen($str);$i++){
@@ -131,12 +134,11 @@ function encrypt($str){
         $encStr=$encStr.$this->encryptKey[$j];
     }
     $this->encryptData=$encStr;
-    $this->method=$encryMethod;
 
 }
 
 function decrypt($str,$method){
-    for($i=0;$i<strlen($method);$i++){
+    for($i=0;$i<=80;$i++){
         $decryKey[$i]=$method[$i];
     }
     $underDecryKey=array_flip($decryKey);
@@ -152,5 +154,5 @@ function decrypt($str,$method){
 }
 
 //class end
-    
 }
+
