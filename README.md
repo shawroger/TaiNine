@@ -1,6 +1,6 @@
 # TaiNine 太难
 
-一个简单的加密解密字符串的php文件
+####一个简单的加密解密字符串的php文件
 
 太难，因为有81=9*9个字符随机替换，能不难么。
 
@@ -52,19 +52,14 @@ echo $test->decryptData; //还原
 
 ###### 返回参数
 
-1.data 传入的数据
+1.status 成功结果(0/1)
 
-2.htmlData 传入的数据的HTML实例格式
+2.message 消息或错误报告
 
-3.status 成功结果(0/1)
+3.data 返回的加密或解密数据
 
-4.message 消息或错误报告
+4.method 解密方法序列
 
-5.method 解密方法序列
-
-6.encryptData 加密数据
-
-7.decryptData 解密数据
 
 示例：
 
@@ -85,10 +80,7 @@ $(document).ready(function(){
 {
 "status":1,
 "message":"encrypting data",
-"data":"hello,world",
-"htmlData":"hello,world",
+"data":"x*g@$\/cN Og",
 "method":"W.qMw*:xvQBVyg@Xjz$ZON26U +icbfnY^EIeaD?t0K&#>1sF5Ad<lGk9\/hPpmH,!;o8LJ3-urCS%R4T7",
-"encryptData":"x*g@$\/cN Og",
-"decryptData":""
 }
 ```
