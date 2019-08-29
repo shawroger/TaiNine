@@ -6,12 +6,7 @@ class TaiNine {
     
 public $str;
     
-function __construct($str) {
-    
-    $this->str=$str;
-    
-    //获取html实体化数据
-    $this->htmlStr=$this->toHtml($str);
+function __construct() {
     
     //81个原始字符数组
     $KEY[0]="a";
@@ -105,6 +100,7 @@ function __construct($str) {
     //获取正确序列数组的反序列
     $this->underKey=array_flip($this->encryptKey);
 }
+   
     
 //中文转换的函数用于加密和解密
 function toHtml($string) {
@@ -118,12 +114,8 @@ function backHtml($string) {
 
 //加密算法函数
 function encrypt($str){ 
-    if($str==''){
-        $str=$this->str;
-    }
     
     $str=$this->toHtml($str);
-    
     //每次打乱数组
     shuffle($this->encryptKey);
 
