@@ -1,6 +1,6 @@
 <?php
 
-include_once('TaiNine.php');
+include 'index.php';
 
 $data=isset($_POST['data']) ? $_POST['data'] : '';
 $request=isset($_POST['request']) ? $_POST['request'] : '';
@@ -14,7 +14,7 @@ if($data==''){
     exit();
 }
 else{
-    if($request=='encrypt'){
+    if(($request=='encrypt') || ($request=='0')){
         $e=new TaiNine();
         $e->encrypt($data);
         $code['status']=1;
@@ -24,7 +24,7 @@ else{
         echo json_encode($code);
         exit();
     }
-    else if($request=='decrypt'){
+    else if(($request=='decrypt') || ($request=='1')){
         if(strlen($method)!=81){
             $code['status']=0;
             $code['message']='wrong_method';
@@ -38,7 +38,10 @@ else{
         $code['data']=$d->decryptData;
         echo json_encode($code);
         exit();
+    }else{
+        $code['status']=0;
+        $code['message']='wrong_request';
+        echo json_encode($code);
+        exit();
     }
 }
-
-?>
