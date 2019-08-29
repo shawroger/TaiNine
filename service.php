@@ -1,6 +1,6 @@
 <?php
 
-include 'index.php';
+include 'TaiNine.php';
 
 $data=isset($_POST['data']) ? $_POST['data'] : '';
 $request=isset($_POST['request']) ? $_POST['request'] : '';
